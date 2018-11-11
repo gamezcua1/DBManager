@@ -1,18 +1,18 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QLabel, QGridLayout, QLineEdit, QTreeWidgetItem, \
-    QTreeWidget, QTableWidget, QComboBox, QMessageBox, QTableWidgetItem
+    QTreeWidget, QTableWidget, QComboBox, QMessageBox, QTableWidgetItem, QProgressBar
 from PyQt5.QtGui import QFont
 
 from MySQLConnector import *
+from PSQLConnector import PSQLConnector
 
-
-# https://stackoverflow.com/questions/41204234/python-pyqt5-qtreewidget-sub-item
 
 class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
         self.mysqlc = MySQLConnector()
+        self.psqlc = PSQLConnector()
         self.init_ui()
 
     def init_ui(self):
@@ -46,9 +46,9 @@ class MainWindow(QWidget):
         self.server_input = QLineEdit()
         self.server_input.setText("127.0.0.1")
         self.user_input = QLineEdit()
-        self.user_input.setText("root")
+        self.user_input.setText("")
         self.password_input = QLineEdit()
-        self.password_input.setText("root")
+        self.password_input.setText("")
         self.grid.addWidget(self.server_input, 1, 1)
         self.grid.addWidget(self.user_input, 1, 2)
         self.grid.addWidget(self.password_input, 1, 3)
@@ -65,11 +65,11 @@ class MainWindow(QWidget):
         self.query_input = QLineEdit()
         self.query_button = QPushButton("Run query")
         self.query_button.clicked.connect(self.handle_run_query)
-        self.info_label = QLabel("a")
+        self.info_label = QLabel("")
         self.info_label.setMaximumHeight(12)
         self.info_label.setFont(QFont("SansSerif", 8))
 
-        self.grid.addWidget(self.info_label, 2, 2, 1, 5)
+        self.grid.addWidget(self.info_label, 2, 2, 1, 3)
         self.grid.addWidget(self.query_input, 3, 2, 1, 3)
         self.grid.addWidget(self.query_button, 3, 5, 1, 2)
         self.grid.addWidget(self.query_result, 4, 2, 4, 5)
@@ -105,7 +105,6 @@ class MainWindow(QWidget):
 
         for row_i in range(1, len(result)):
             for col_i in range(0, len(result[0])):
-                print(result[row_i][col_i])
                 self.query_result.setItem(row_i-1, col_i, QTableWidgetItem(str(result[row_i][col_i])))
 
     """         EVENT HANDLERS         """
@@ -115,27 +114,46 @@ class MainWindow(QWidget):
         msg.exec_()
 
     def handle_connect(self):
-        self.mysqlc.set_config(user=self.user_input.text(),
-                               host=self.server_input.text(),
-                               password=self.password_input.text())
-        self.schema = self.mysqlc.get_schema()
-        self.init_schema()
-        self.show_modal("Connection success")
+        if self.connection_box.currentText() == "MySQL":
+            self.mysqlc.set_config(user=self.user_input.text(),
+                                   host=self.server_input.text(),
+                                   password=self.password_input.text())
+            self.schema = self.mysqlc.get_schema()
+            self.init_schema()
+            self.show_modal("Connection success")
+        else:
+            self.psqlc.set_config(user=self.user_input.text(),
+                                  host=self.server_input.text(),
+                                  password=self.password_input.text())
+            self.schema = self.psqlc.get_schema()
+            self.init_schema()
+            self.show_modal("Connection success")
 
     def handle_run_query(self):
         if not hasattr(self, 'schema'):
             self.show_modal("You are not connected to a server")
             return
-        self.draw_table(self.mysqlc.query(self.db_use, self.query_input.text()))
+
+        if self.connection_box.currentText() == "MySQL":
+            self.draw_table(self.mysqlc.query(self.db_use, self.query_input.text()))
+        else:
+            self.draw_table(self.psqlc.query(self.db_use, self.query_input.text()))
 
     def handle_tree_clicked(self, item):
-        if item.identifier == "DATABASE":
-            print(f"USE : {item.text_value}")
-            self.info_label.setText(f"USE : {item.text_value}")
-            self.db_use = item.text_value
-        elif item.identifier == "TABLE":
-            query = f"SELECT * FROM {item.text_value}"
-            self.draw_table(self.mysqlc.query(self.db_use, query))
+        if self.connection_box.currentText() == "MySQL":
+            if item.identifier == "DATABASE":
+                self.info_label.setText(f"USE : {item.text_value}")
+                self.db_use = item.text_value
+            elif item.identifier == "TABLE":
+                query = f"SELECT * FROM {item.text_value}"
+                self.draw_table(self.mysqlc.query(self.db_use, query))
+        else:
+            if item.identifier == "DATABASE":
+                self.info_label.setText(f"USE : {item.text_value}")
+                self.db_use = item.text_value
+            elif item.identifier == "TABLE":
+                query = f"SELECT * FROM {item.text_value}"
+                self.draw_table(self.psqlc.query(self.db_use, query))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

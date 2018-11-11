@@ -47,9 +47,7 @@ class MySQLConnector:
         cnx = mysql.connector.connect(**self.config)
         cursor = cnx.cursor()
         cursor.execute(f"SELECT TABLE_NAME FROM TABLES WHERE TABLE_SCHEMA='{db}'")
-        tables = []
-        for s in cursor:
-            tables.append(s[0])
+        tables = [s[0] for s in cursor]
 
         cursor.close()
         cnx.close()
