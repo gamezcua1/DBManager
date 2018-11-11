@@ -4,11 +4,12 @@ import psycopg2
 class PSQLConnector:
     """ PostgreSQL bindings """
 
-    def set_config(self, host, user, password):
+    def set_config(self, host, user, password, port=5432):
         self.config = {
             'user': user,
             'password': password,
-            'host': host
+            'host': host,
+            'port': int(port)
         }
         print("PostgreSQL connector initialized")
 

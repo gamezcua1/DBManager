@@ -4,11 +4,12 @@ import mysql.connector
 class MySQLConnector:
     """ MySQL bindings """
 
-    def set_config(self, host, user, password):
+    def set_config(self, host, user, password, port=3306):
         self.config = {
             'user': user,
             'password': password,
-            'host': host
+            'host': host,
+            'port': int(port)
         }
         print("MySQL connector initialized")
 

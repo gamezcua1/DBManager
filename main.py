@@ -25,6 +25,9 @@ class MainWindow(QWidget):
         self.server_label = QLabel("Server")
         self.server_label.setMaximumHeight(10)
 
+        self.port_label = QLabel("Port")
+        self.port_label.setMaximumHeight(10)
+
         self.user_label = QLabel("User")
         self.user_label.setMaximumHeight(10)
 
@@ -35,24 +38,31 @@ class MainWindow(QWidget):
         self.connect_button.clicked.connect(self.handle_connect)
 
         self.grid.addWidget(self.server_label, 0, 1, 1, 1)
-        self.grid.addWidget(self.user_label, 0, 2, 1, 1)
-        self.grid.addWidget(self.password_label, 0, 3, 1, 1)
-        self.grid.addWidget(self.connect_button, 1, 5, 1, 2)
+        self.grid.addWidget(self.port_label, 0, 2, 1, 1)
+        self.grid.addWidget(self.user_label, 0, 3, 1, 1)
+        self.grid.addWidget(self.password_label, 0, 4, 1, 1)
+        self.grid.addWidget(self.connect_button, 1, 6, 1, 2)
 
         # Second row
         self.connection_box = QComboBox()
         self.connection_box.addItem("MySQL")
         self.connection_box.addItem("PostgreSQL")
+        self.connection_box.currentTextChanged.connect(self.handle_connector__changed)
         self.server_input = QLineEdit()
         self.server_input.setText("127.0.0.1")
+        self.port_input = QLineEdit()
+        self.port_input.setText("3306")
+        self.port_input.setMaximumWidth(60)
         self.user_input = QLineEdit()
         self.user_input.setText("")
         self.password_input = QLineEdit()
         self.password_input.setText("")
+        self.password_input.setEchoMode(QLineEdit.Password)
         self.grid.addWidget(self.server_input, 1, 1)
-        self.grid.addWidget(self.user_input, 1, 2)
-        self.grid.addWidget(self.password_input, 1, 3)
-        self.grid.addWidget(self.connection_box, 1, 4, 1, 1)
+        self.grid.addWidget(self.port_input, 1, 2)
+        self.grid.addWidget(self.user_input, 1, 3)
+        self.grid.addWidget(self.password_input, 1, 4)
+        self.grid.addWidget(self.connection_box, 1, 5, 1, 1)
 
         # Third row
         self.schema_tree = QTreeWidget()
@@ -70,9 +80,9 @@ class MainWindow(QWidget):
         self.info_label.setFont(QFont("SansSerif", 8))
 
         self.grid.addWidget(self.info_label, 2, 2, 1, 3)
-        self.grid.addWidget(self.query_input, 3, 2, 1, 3)
-        self.grid.addWidget(self.query_button, 3, 5, 1, 2)
-        self.grid.addWidget(self.query_result, 4, 2, 4, 5)
+        self.grid.addWidget(self.query_input, 3, 2, 1, 4)
+        self.grid.addWidget(self.query_button, 3, 6, 1, 2)
+        self.grid.addWidget(self.query_result, 4, 2, 4, 6)
         self.grid.addWidget(self.schema_tree, 2, 1, 6, 1)
 
         self.setLayout(self.grid)
@@ -80,6 +90,7 @@ class MainWindow(QWidget):
         self.show()
 
     def init_schema(self):
+        self.schema_tree.clear()
         for key in self.schema.keys():
             db_tree = QTreeWidgetItem([key])
             db_tree.identifier = "DATABASE"
@@ -113,11 +124,18 @@ class MainWindow(QWidget):
         msg.setText(text)
         msg.exec_()
 
+    def handle_connector__changed(self, t):
+        if t == "PostgreSQL":
+            self.port_input.setText("5432")
+        else:
+            self.port_input.setText("3306")
+
     def handle_connect(self):
         if self.connection_box.currentText() == "MySQL":
             self.mysqlc.set_config(user=self.user_input.text(),
                                    host=self.server_input.text(),
-                                   password=self.password_input.text())
+                                   password=self.password_input.text(),
+                                   port=self.port_input.text())
             self.schema = self.mysqlc.get_schema()
             self.init_schema()
             self.show_modal("Connection success")
@@ -154,6 +172,7 @@ class MainWindow(QWidget):
             elif item.identifier == "TABLE":
                 query = f"SELECT * FROM {item.text_value}"
                 self.draw_table(self.psqlc.query(self.db_use, query))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

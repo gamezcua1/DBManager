@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b45d4ebf-620a-45e2-8d42-f2292e62d22d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySQLConnector.py" beforeDir="false" afterPath="$PROJECT_DIR$/MySQLConnector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PSQLConnector.py" beforeDir="false" afterPath="$PROJECT_DIR$/PSQLConnector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -14,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DBManager$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1541956484881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DBManager$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1541960852161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1391163067">
@@ -32,7 +31,7 @@
           <entry key="gitignore" value="3" />
           <entry key="md" value="2" />
           <entry key="png" value="1" />
-          <entry key="py" value="7" />
+          <entry key="py" value="10" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
@@ -41,7 +40,7 @@
           <entry key="Image" value="1" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="7" />
+          <entry key="Python" value="10" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -50,14 +49,15 @@
           <entry key="dummy" value="29" />
           <entry key="gitignore" value="12" />
           <entry key="md" value="10" />
-          <entry key="py" value="7846" />
+          <entry key="py" value="8282" />
+          <entry key="txt" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="10" />
-          <entry key="PLAIN_TEXT" value="41" />
-          <entry key="Python" value="7845" />
+          <entry key="PLAIN_TEXT" value="68" />
+          <entry key="Python" value="8281" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -68,21 +68,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="74" column="58" lean-forward="true" selection-start-line="74" selection-start-column="58" selection-end-line="74" selection-end-column="58" />
+            <state relative-caret-position="126">
+              <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1541957330031" expanded="true" signature="5044:5049" ph="..." />
+                <marker date="1541960865960" expanded="true" signature="4819:4957" ph="..." />
+                <marker date="1541960865960" expanded="true" signature="5782:5787" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PSQLConnector.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
@@ -114,9 +106,9 @@
         <option value="$PROJECT_DIR$/EventHandlers.py" />
         <option value="$PROJECT_DIR$/dbConnector.py" />
         <option value="$PROJECT_DIR$/DBConnector.py" />
+        <option value="$PROJECT_DIR$/prog.py" />
         <option value="$PROJECT_DIR$/MySQLConnector.py" />
         <option value="$PROJECT_DIR$/PSQLConnector.py" />
-        <option value="$PROJECT_DIR$/prog.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
@@ -206,6 +198,14 @@
       <option name="presentableId" value="Default" />
       <updated>1541865865928</updated>
     </task>
+    <task id="LOCAL-00001" summary="PostgreSQL connection">
+      <created>1541958000860</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1541958000861</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -241,6 +241,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="PostgreSQL connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="PostgreSQL connection" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/977754194/PyQt5/QtWidgets/QWidget.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -270,24 +274,6 @@
         <state relative-caret-position="-390" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MySQLConnector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <marker date="1541952195216" expanded="true" signature="74:79" ph="..." />
-            <marker date="1541952195216" expanded="true" signature="74:287" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PSQLConnector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/prog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -298,13 +284,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MySQLConnector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="12" column="9" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <marker date="1541959640556" expanded="true" signature="74:79" ph="..." />
+            <marker date="1541959640556" expanded="true" signature="74:329" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PSQLConnector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-364">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="74" column="58" lean-forward="true" selection-start-line="74" selection-start-column="58" selection-end-line="74" selection-end-column="58" />
+        <state relative-caret-position="126">
+          <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1541957330031" expanded="true" signature="5044:5049" ph="..." />
+            <marker date="1541960865960" expanded="true" signature="4819:4957" ph="..." />
+            <marker date="1541960865960" expanded="true" signature="5782:5787" ph="..." />
           </folding>
         </state>
       </provider>
