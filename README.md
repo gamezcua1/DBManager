@@ -2,7 +2,7 @@
 # Python
 ## MySQL & PostgreSQL
 
-![](https://github.com/gamezcua1/DBManager/window.png "This is what the app looks like")
+![](https://github.com/gamezcua1/DBManager/blob/master/window.PNG "This is what the app looks like")
 
 
 - Puede ser programada con cualquier herramienta o lenguaje (c#, java, phyton, c++, etc), salvo aquellos que estén 
