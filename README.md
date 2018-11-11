@@ -1,7 +1,6 @@
 # DB Manager
 # Python
-## MySQL
-## PostgreSQL
+## MySQL & PostgreSQL
 
 
 - Puede ser programada con cualquier herramienta o lenguaje (c#, java, phyton, c++, etc), salvo aquellos que estén 
