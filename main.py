@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QLabel, QGridLayout, QLineEdit, QTreeWidgetItem, \
-    QTreeWidget, QTableWidget, QComboBox
+    QTreeWidget, QTableWidget, QComboBox, QMessageBox, QTableWidgetItem
+from PyQt5.QtGui import QFont
 
 from MySQLConnector import *
 
@@ -17,8 +18,8 @@ class MainWindow(QWidget):
     def init_ui(self):
         """This initiates the window"""
         # GRID Layout
-        grid = QGridLayout()
-        grid.setSpacing(5)
+        self.grid = QGridLayout()
+        self.grid.setSpacing(5)
 
         # First Row
         self.server_label = QLabel("Server")
@@ -33,10 +34,10 @@ class MainWindow(QWidget):
         self.connect_button = QPushButton("Connect", self)
         self.connect_button.clicked.connect(self.handle_connect)
 
-        grid.addWidget(self.server_label, 0, 1, 1, 1)
-        grid.addWidget(self.user_label, 0, 2, 1, 1)
-        grid.addWidget(self.password_label, 0, 3, 1, 1)
-        grid.addWidget(self.connect_button, 1, 5, 1, 2)
+        self.grid.addWidget(self.server_label, 0, 1, 1, 1)
+        self.grid.addWidget(self.user_label, 0, 2, 1, 1)
+        self.grid.addWidget(self.password_label, 0, 3, 1, 1)
+        self.grid.addWidget(self.connect_button, 1, 5, 1, 2)
 
         # Second row
         self.connection_box = QComboBox()
@@ -48,39 +49,93 @@ class MainWindow(QWidget):
         self.user_input.setText("root")
         self.password_input = QLineEdit()
         self.password_input.setText("root")
-        grid.addWidget(self.server_input, 1, 1)
-        grid.addWidget(self.user_input, 1, 2)
-        grid.addWidget(self.password_input, 1, 3)
-        grid.addWidget(self.connection_box, 1, 4, 1, 1)
+        self.grid.addWidget(self.server_input, 1, 1)
+        self.grid.addWidget(self.user_input, 1, 2)
+        self.grid.addWidget(self.password_input, 1, 3)
+        self.grid.addWidget(self.connection_box, 1, 4, 1, 1)
 
         # Third row
-        self.db_tree = QTreeWidget()
-        self.db_tree.setColumnCount(1)
-        self.db_tree.setHeaderLabels(["Data bases"])
+        self.schema_tree = QTreeWidget()
+        self.schema_tree.setColumnCount(1)
+        self.schema_tree.setHeaderLabels(["Data bases"])
+        self.schema_tree.itemDoubleClicked.connect(self.handle_tree_clicked)
 
         self.query_result = QTableWidget()
 
         self.query_input = QLineEdit()
         self.query_button = QPushButton("Run query")
         self.query_button.clicked.connect(self.handle_run_query)
+        self.info_label = QLabel("a")
+        self.info_label.setMaximumHeight(12)
+        self.info_label.setFont(QFont("SansSerif", 8))
 
-        grid.addWidget(self.query_input, 2, 2, 1, 3)
-        grid.addWidget(self.query_button, 2, 5, 1, 2)
-        grid.addWidget(self.query_result, 3, 2, 4, 5)
-        grid.addWidget(self.db_tree, 2, 1, 5, 1)
+        self.grid.addWidget(self.info_label, 2, 2, 1, 5)
+        self.grid.addWidget(self.query_input, 3, 2, 1, 3)
+        self.grid.addWidget(self.query_button, 3, 5, 1, 2)
+        self.grid.addWidget(self.query_result, 4, 2, 4, 5)
+        self.grid.addWidget(self.schema_tree, 2, 1, 6, 1)
 
-        self.setLayout(grid)
+        self.setLayout(self.grid)
         self.setWindowTitle('DB Admin')
         self.show()
+
+    def init_schema(self):
+        for key in self.schema.keys():
+            db_tree = QTreeWidgetItem([key])
+            db_tree.identifier = "DATABASE"
+            db_tree.text_value = key
+            for table in self.schema[key].keys():
+                table_tree = QTreeWidgetItem([table])
+                table_tree.identifier = "TABLE"
+                table_tree.text_value = table
+                table_tree.addChild(QTreeWidgetItem(['id']))
+                for column in self.schema[key][table]:
+                    col = QTreeWidgetItem([column])
+                    col.identifier = "COLUMN"
+                    col.text_value = column
+                    table_tree.addChild(col)
+                db_tree.addChild(table_tree)
+            self.schema_tree.addTopLevelItem(db_tree)
+
+    def draw_table(self, result):
+        self.query_result.clear()
+        self.query_result.setRowCount(len(result)-1)
+        self.query_result.setColumnCount(len(result[0]))
+        self.query_result.setHorizontalHeaderLabels(result[0])
+
+        for row_i in range(1, len(result)):
+            for col_i in range(0, len(result[0])):
+                print(result[row_i][col_i])
+                self.query_result.setItem(row_i-1, col_i, QTableWidgetItem(str(result[row_i][col_i])))
+
+    """         EVENT HANDLERS         """
+    def show_modal(self, text):
+        msg = QMessageBox()
+        msg.setText(text)
+        msg.exec_()
 
     def handle_connect(self):
         self.mysqlc.set_config(user=self.user_input.text(),
                                host=self.server_input.text(),
                                password=self.password_input.text())
+        self.schema = self.mysqlc.get_schema()
+        self.init_schema()
+        self.show_modal("Connection success")
 
     def handle_run_query(self):
-        print(self.mysqlc.get_schema())
+        if not hasattr(self, 'schema'):
+            self.show_modal("You are not connected to a server")
+            return
+        self.draw_table(self.mysqlc.query(self.db_use, self.query_input.text()))
 
+    def handle_tree_clicked(self, item):
+        if item.identifier == "DATABASE":
+            print(f"USE : {item.text_value}")
+            self.info_label.setText(f"USE : {item.text_value}")
+            self.db_use = item.text_value
+        elif item.identifier == "TABLE":
+            query = f"SELECT * FROM {item.text_value}"
+            self.draw_table(self.mysqlc.query(self.db_use, query))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
