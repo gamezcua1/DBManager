@@ -92,10 +92,12 @@ class PSQLConnector:
                 tables_columns.append(columns)
 
         schema = {}
+        c_i = 0
         for i in range(0, len(dbs)):
             table_cols = {}
             for j in range(0, len(db_tables[i])):
-                table_cols[db_tables[i][j]] = tables_columns[j]
+                table_cols[db_tables[i][j]] = tables_columns[c_i]
+                c_i += 1
             schema[dbs[i]] = table_cols
 
         return schema

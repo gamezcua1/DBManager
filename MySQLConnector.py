@@ -61,6 +61,13 @@ class MySQLConnector:
         cursor.execute(f"SELECT COLUMN_NAME FROM COLUMNS WHERE TABLE_SCHEMA='{db}' and TABLE_NAME='{table}'")
         columns = [c[0] for c in cursor]
 
+        cursor.execute(f"select DISTINCT c.COLUMN_NAME from TABLE_CONSTRAINTS tc join COLUMNS c on "
+                       f"tc.CONSTRAINT_SCHEMA = c.TABLE_SCHEMA join (select TABLE_NAME, COLUMN_NAME from COLUMNS "
+                       f"where TABLE_SCHEMA = '{db}') cn on cn.COLUMN_NAME = c.COLUMN_NAME where "
+                       f"CONSTRAINT_SCHEMA = '{db}' and COLUMN_KEY = 'PRI' and c.TABLE_NAME='{table}' group by c.TABLE_NAME,c.COLUMN_NAME,tc.CONSTRAINT_TYPE,cn.TABLE_NAME,tc.CONSTRAINT_SCHEMA,cn.COLUMN_NAME")
+
+        for c in cursor:
+            columns.append(c[0] + "\t(fk)")
         cursor.close()
         cnx.close()
         return columns
@@ -80,11 +87,14 @@ class MySQLConnector:
                 columns = self.get_columns_from_table(db, table)
                 tables_columns.append(columns)
 
+
         schema = {}
+        c_i = 0
         for i in range(0, len(dbs)):
             table_cols = {}
             for j in range(0, len(db_tables[i])):
-                table_cols[db_tables[i][j]] = tables_columns[j]
+                table_cols[db_tables[i][j]] = tables_columns[c_i]
+                c_i += 1
             schema[dbs[i]] = table_cols
 
         return schema

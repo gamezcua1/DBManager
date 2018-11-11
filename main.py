@@ -99,7 +99,6 @@ class MainWindow(QWidget):
                 table_tree = QTreeWidgetItem([table])
                 table_tree.identifier = "TABLE"
                 table_tree.text_value = table
-                table_tree.addChild(QTreeWidgetItem(['id']))
                 for column in self.schema[key][table]:
                     col = QTreeWidgetItem([column])
                     col.identifier = "COLUMN"
