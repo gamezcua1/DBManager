@@ -1,7 +1,9 @@
-#DB Manager
+# DB Manager
+# Python
 ## MySQL
 ## PostgreSQL
-### Python
+
+
 - Puede ser programada con cualquier herramienta o lenguaje (c#, java, phyton, c++, etc), salvo aquellos que estén 
 basados en web (no usar interfaz web/HTML).
 - Debe permitir establecer la conexión a diferentes servidores, escogiendo al menos menos 2 de estos: MS-Access, 
