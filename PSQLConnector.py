@@ -28,6 +28,26 @@ class PSQLConnector:
         cnx.close()
         return tables
 
+    def insert(self, db="", table="", cols=[], values=[]):
+        self.config['database'] = db
+        cnx = psycopg2.connect(**self.config)
+        cursor = cnx.cursor()
+
+        cols = [f'"{x}"' for x in cols]
+
+        add = (f"INSERT INTO {table} ({','.join(cols)}) VALUES ({'%s,'*(len(cols)-1)+'%s'})")
+        # cursor.execute('''INSERT INTO signup (id, name, email, dob, address, mobile, password) VALUES (1,%s,%s,%s,%s,%s,%s)''',  (name,email,dob,address,mobile,password))
+
+        try:           
+            cursor.execute(add, values)
+            cnx.commit()
+        except psycopg2.Error as error:
+            print(error)
+            return error
+        finally:
+            cursor.close()
+            cnx.close()
+
     def get_databases(self):
         """Get the databases on """
         self.config["database"] = "postgres"

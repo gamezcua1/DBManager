@@ -6,6 +6,7 @@ from PyQt5.QtGui import QFont
 from MySQLConnector import *
 from PSQLConnector import PSQLConnector
 
+from FormDialog import *
 
 class MainWindow(QWidget):
 
@@ -54,9 +55,9 @@ class MainWindow(QWidget):
         self.port_input.setText("3306")
         self.port_input.setMaximumWidth(60)
         self.user_input = QLineEdit()
-        self.user_input.setText("")
+        self.user_input.setText("root")
         self.password_input = QLineEdit()
-        self.password_input.setText("")
+        self.password_input.setText("root")
         self.password_input.setEchoMode(QLineEdit.Password)
         self.grid.addWidget(self.server_input, 1, 1)
         self.grid.addWidget(self.port_input, 1, 2)
@@ -98,6 +99,7 @@ class MainWindow(QWidget):
             for table in self.schema[key].keys():
                 table_tree = QTreeWidgetItem([table])
                 table_tree.identifier = "TABLE"
+                table_tree.database = key
                 table_tree.text_value = table
                 for column in self.schema[key][table]:
                     col = QTreeWidgetItem([column])
@@ -162,6 +164,13 @@ class MainWindow(QWidget):
                 self.info_label.setText(f"USE : {item.text_value}")
                 self.db_use = item.text_value
             elif item.identifier == "TABLE":
+                db = item.database
+                table = item.text_value
+                FormDialog.getDateTime(
+                    db=db,
+                    table=table,
+                    cols=self.schema[db][table],
+                    manager=self.mysqlc)
                 query = f"SELECT * FROM {item.text_value}"
                 self.draw_table(self.mysqlc.query(self.db_use, query))
         else:
@@ -169,6 +178,15 @@ class MainWindow(QWidget):
                 self.info_label.setText(f"USE : {item.text_value}")
                 self.db_use = item.text_value
             elif item.identifier == "TABLE":
+                db = item.database
+                table = item.text_value
+                FormDialog.getDateTime(
+                    db=db,
+                    table=table,
+                    cols=self.schema[db][table],
+                    manager=self.psqlc)
+                query = f"SELECT * FROM {item.text_value}"
+                self.draw_table(self.psqlc.query(self.db_use, query))
                 query = f"SELECT * FROM {item.text_value}"
                 self.draw_table(self.psqlc.query(self.db_use, query))
 

@@ -28,6 +28,29 @@ class MySQLConnector:
         cnx.close()
         return tables
 
+    def insert(self, db="", table="", cols=[], values=[]):
+        self.config['database'] = db
+        cnx = mysql.connector.connect(**self.config)
+        cursor = cnx.cursor()
+
+        fix_cols = []
+        for col in cols:
+            fix_cols.append(col.split(',')[0])
+
+        add = (f"INSERT INTO {table} ({','.join(fix_cols)}) VALUES ({'%s,'*(len(fix_cols)-1)+'%s'})")
+
+        try:
+            cursor.execute(add, values)
+            cnx.commit()
+        except mysql.connector.Error as err:
+            cursor.close()
+            cnx.close()
+            print(err)
+            return err.__str__()
+        finally:
+            cursor.close()
+            cnx.close()
+
     def get_databases(self):
         """Get the databases on """
         self.config['database'] = 'information_schema'
@@ -58,16 +81,9 @@ class MySQLConnector:
         self.config['database'] = 'information_schema'
         cnx = mysql.connector.connect(**self.config)
         cursor = cnx.cursor()
-        cursor.execute(f"SELECT COLUMN_NAME FROM COLUMNS WHERE TABLE_SCHEMA='{db}' and TABLE_NAME='{table}'")
-        columns = [c[0] for c in cursor]
+        cursor.execute(f"SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_SCHEMA='{db}' and TABLE_NAME='{table}'")
+        columns = [f"{c[0]}, ({c[1]})" for c in cursor]
 
-        cursor.execute(f"select DISTINCT c.COLUMN_NAME from TABLE_CONSTRAINTS tc join COLUMNS c on "
-                       f"tc.CONSTRAINT_SCHEMA = c.TABLE_SCHEMA join (select TABLE_NAME, COLUMN_NAME from COLUMNS "
-                       f"where TABLE_SCHEMA = '{db}') cn on cn.COLUMN_NAME = c.COLUMN_NAME where "
-                       f"CONSTRAINT_SCHEMA = '{db}' and COLUMN_KEY = 'PRI' and c.TABLE_NAME='{table}' group by c.TABLE_NAME,c.COLUMN_NAME,tc.CONSTRAINT_TYPE,cn.TABLE_NAME,tc.CONSTRAINT_SCHEMA,cn.COLUMN_NAME")
-
-        for c in cursor:
-            columns.append(c[0] + "\t(fk)")
         cursor.close()
         cnx.close()
         return columns

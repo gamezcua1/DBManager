@@ -12,17 +12,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DBManager$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1541962976541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DBManager$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1542237688415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1391163067">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.202" value="1" />
           <entry key="project.open.time.51" value="1" />
           <entry key="project.open.time.62" value="1" />
           <entry key="project.open.time.75" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -30,7 +31,7 @@
           <entry key="gitignore" value="3" />
           <entry key="md" value="2" />
           <entry key="png" value="1" />
-          <entry key="py" value="11" />
+          <entry key="py" value="17" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
@@ -39,7 +40,7 @@
           <entry key="Image" value="1" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="11" />
+          <entry key="Python" value="17" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -48,7 +49,7 @@
           <entry key="dummy" value="29" />
           <entry key="gitignore" value="12" />
           <entry key="md" value="10" />
-          <entry key="py" value="8462" />
+          <entry key="py" value="9969" />
           <entry key="txt" value="27" />
         </counts>
       </usages-collector>
@@ -56,7 +57,7 @@
         <counts>
           <entry key="Markdown" value="10" />
           <entry key="PLAIN_TEXT" value="68" />
-          <entry key="Python" value="8461" />
+          <entry key="Python" value="9968" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -67,12 +68,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="102" column="45" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
+            <state relative-caret-position="234">
+              <caret line="156" column="75" selection-start-line="156" selection-start-column="64" selection-end-line="156" selection-end-column="75" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1541961446424" expanded="true" signature="4758:4896" ph="..." />
-                <marker date="1541961446424" expanded="true" signature="5721:5726" ph="..." />
               </folding>
             </state>
           </provider>
@@ -81,11 +80,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MySQLConnector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
+            <state relative-caret-position="364">
+              <caret line="47" column="52" lean-forward="true" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
               <folding>
-                <marker date="1541962975913" expanded="true" signature="74:79" ph="..." />
-                <marker date="1541962975913" expanded="true" signature="74:329" ph="..." />
+                <marker date="1542239903453" expanded="true" signature="74:79" ph="..." />
+                <marker date="1542239903453" expanded="true" signature="74:329" ph="..." />
+                <marker date="1542239903453" expanded="true" signature="786:1110" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FormDialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+                <marker date="1542239912980" expanded="true" signature="1324:1375" ph="..." />
               </folding>
             </state>
           </provider>
@@ -121,6 +134,7 @@
         <option value="$PROJECT_DIR$/prog.py" />
         <option value="$PROJECT_DIR$/PSQLConnector.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/FormDialog.py" />
         <option value="$PROJECT_DIR$/MySQLConnector.py" />
       </list>
     </option>
@@ -132,7 +146,6 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1366" />
     <option name="width" value="1366" />
     <option name="height" value="738" />
   </component>
@@ -142,7 +155,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -154,6 +166,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,15 +234,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18594436" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28025478" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21656051" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39968154" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -285,16 +298,7 @@
         <state relative-caret-position="-390" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/prog.py" />
     <entry file="file://$PROJECT_DIR$/PSQLConnector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-364">
@@ -302,25 +306,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/977754194/PyQt5/QtWidgets/QDialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="102" column="45" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
+        <state relative-caret-position="234">
+          <caret line="156" column="75" selection-start-line="156" selection-start-column="64" selection-end-line="156" selection-end-column="75" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1541961446424" expanded="true" signature="4758:4896" ph="..." />
-            <marker date="1541961446424" expanded="true" signature="5721:5726" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FormDialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1542239912980" expanded="true" signature="1324:1375" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MySQLConnector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
+        <state relative-caret-position="364">
+          <caret line="47" column="52" lean-forward="true" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
           <folding>
-            <marker date="1541962975913" expanded="true" signature="74:79" ph="..." />
-            <marker date="1541962975913" expanded="true" signature="74:329" ph="..." />
+            <marker date="1542239903453" expanded="true" signature="74:79" ph="..." />
+            <marker date="1542239903453" expanded="true" signature="74:329" ph="..." />
+            <marker date="1542239903453" expanded="true" signature="786:1110" ph="..." />
           </folding>
         </state>
       </provider>
