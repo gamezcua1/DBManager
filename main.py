@@ -166,7 +166,7 @@ class MainWindow(QWidget):
             elif item.identifier == "TABLE":
                 db = item.database
                 table = item.text_value
-                FormDialog.getDateTime(
+                FormDialog.show_form(
                     db=db,
                     table=table,
                     cols=self.schema[db][table],
@@ -180,7 +180,7 @@ class MainWindow(QWidget):
             elif item.identifier == "TABLE":
                 db = item.database
                 table = item.text_value
-                FormDialog.getDateTime(
+                FormDialog.show_form(
                     db=db,
                     table=table,
                     cols=self.schema[db][table],

@@ -75,7 +75,7 @@ class FormDialog(QDialog):
 
     
     @staticmethod
-    def getDateTime(db="", table="", cols=[], manager=None, parent=None):
+    def show_form(db="", table="", cols=[], manager=None, parent=None):
         dialog = FormDialog(parent=parent,
                             db=db,
                             table=table,

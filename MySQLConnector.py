@@ -46,7 +46,7 @@ class MySQLConnector:
             cursor.close()
             cnx.close()
             print(err)
-            return err.__str__()
+            return err
         finally:
             cursor.close()
             cnx.close()
